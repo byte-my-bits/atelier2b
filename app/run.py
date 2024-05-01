@@ -542,10 +542,13 @@ def change_project():
 def create_project():
     name = request.form['name'].strip()
     type = request.form['type'].strip()
-    address = request.form['address'].strip()
+    client =  request.form['client'].strip()
+    client_address = request.form['address'].strip()
+
+    project_structure = mongo.db.settings.find_one({"settings_id": "project"})
 
     # Create object data
-    new_project = Project(name, type, address, current_user.dict())
+    new_project = Project(name, type, client, client_address, current_user.dict(), project_structure)
 
     # Create dictionary data to save to database
     project_data_to_save = new_project.dict()

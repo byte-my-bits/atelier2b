@@ -2,27 +2,22 @@ from datetime import datetime
 import uuid
 
 class Project():
-    def __init__(self, name, type, address, current_user, id="" ):
+    def __init__(self, name, type, client, client_address, current_user, project_structure, id="" ):
         # Main initialiser
-        self.name = name
-        self.type = type
         self.owner = current_user['id']
-        self.members = [current_user]
-        self.address = address        
         self.id = uuid.uuid4().hex if not id else id
         self.creation_date = datetime.now()
-        self.invite_token = f"{uuid.uuid4().hex[:8]}" if not id else id
+        self.type = type
+
+        self.data = project_structure
+
+        self.data['informatii_generale']['an_proiect'] =  datetime.now().year
+        self.data['informatii_generale']['titlu_proiect'] =  name
+        self.data['informatii_generale']['beneficiar'] =  client
+        self.data['informatii_generale']['adresa_beneficiar'] =  client_address
+        self.data['informatii_generale']['proiectant_general'] =  "Atelier 2Ba"
+        self.data['informatii_generale']['sediu_proiectant'] =  "Str. Orest Tafrali 3, Iasi 700495"
         
-        print(f"+-----------------------------------------------------+")
-        print(f"![Debug]! Name: {self.name}")
-        print(f"![Debug]! Type: {self.type}")
-        print(f"![Debug]! Owner: {self.owner}")
-        print(f"![Debug]! Members: {self.members}")
-        print(f"![Debug]! Address: {self.address}")
-        print(f"![Debug]! ID: {self.id}")
-        print(f"![Debug]! Creation Date: {self.creation_date}")
-        print(f"![Debug]! Invite Token: {self.invite_token}")
-        print(f"+-----------------------------------------------------+")
         
     
     @classmethod

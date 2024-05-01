@@ -48,7 +48,7 @@
                             <td>Role</td>
                             <td>
                                 {% for role in current_user.role %}
-                                    <div class="label">{{ role }}</div>
+                                    <div class="label mb-2">{{ role }}</div>
                                 {% endfor %}
 
                                 {% if current_user.verified %}

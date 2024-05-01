@@ -141,3 +141,8 @@ select.form-control {
     background-color: #d1ecf1;
     border-color: #bee5eb;
 }
+
+.small-logo {
+    width: 10rem;
+    padding: 10px;
+}

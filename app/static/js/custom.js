@@ -216,8 +216,8 @@ $(document).ready(function() {
                 var selectedProjectDetails = response;
                 // Build a string that includes all the properties you want to display
                 var detailsHtml = '<p>Project Name: ' + selectedProjectDetails.name + '</p>' +
-                                '<p>Project ID: ' + selectedProjectDetails.id + '</p>' +
-                                '<p>Project Type: ' + selectedProjectDetails.type + '</p>';
+                                  '<p>Project ID: ' + selectedProjectDetails.id + '</p>' +
+                                  '<p>Project Type: ' + selectedProjectDetails.type + '</p>';
                 // If members is an array of objects, you can loop through it to display each member
                 if (Array.isArray(selectedProjectDetails.members)) {
                     detailsHtml += '<p>Members:</p><ul>';

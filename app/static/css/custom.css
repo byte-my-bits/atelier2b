@@ -1,0 +1,143 @@
+/* Body top margin to allow for navbar */
+body {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+/* Reduced opacity on home icon */
+i.home {
+    opacity: 0.5;
+}
+
+/* Select form element plain styling */
+select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+
+
+.welcome_image {
+    width: 27.7rem;
+}
+
+.bg-dark {
+    background-color: #2e2e2e!important;
+}
+
+.custom-card {
+    background-color: #414141!important;
+}
+
+  .project-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .project-action-item {
+    /* margin: 15px; */
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .project-button{
+    margin: 15px;
+  }
+
+  .project-controls{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+ 
+  .form-custom{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .table td, .table th {
+    border-top: 0px;
+}
+
+
+.label {
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px 10px;
+  background-color: #58b339;
+  color: #fff;
+  border-radius: 3px;
+  margin-right: 5px;
+  font-weight: 500;
+}
+
+
+
+/* button.btn-primary{
+  width: 14rem;
+} */
+
+
+.card {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 30px;
+  margin-top: 1rem;
+}
+
+.black-card {
+  background-color: #1e1e1e;
+  border-radius: 5px;
+  padding: 30px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.the-card {
+  background-color: none;
+  border-radius: 5px;
+ 
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.body{
+  background-color: #161616;
+}
+
+
+
+
+
+.flex-form {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding: 0px;
+}
+
+ p{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: justify
+}
+
+.row-align{
+    margin-top: 5rem;
+    margin-bottom: 0rem;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}

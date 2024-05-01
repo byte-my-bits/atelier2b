@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h1>Chess board</h1>
+  <table class="chessboard">
+    {% for row in range(8) %}
+      <tr>
+        {% for col in range(8) %}
+          {% if (row + col) % 2 == 0 %}
+            <td class="white"></td>
+          {% else %}
+            <td class="black"></td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+  <canvas id="myChart"></canvas>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./static/js/chart.js"></script>
+{% endblock %}

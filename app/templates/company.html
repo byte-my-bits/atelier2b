@@ -1,0 +1,194 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container">
+    <div class="row row-align">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info w-100">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+     </div>
+    <div class="row mb-5">
+        <div class="col-lg-8">
+
+            <div class="table-responsive card">
+                <h2 class="mb-3 card-title">Household</h2>
+                <table class="table align-middle">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="project-actions">
+                                    <div class="project-action-item">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#create-project">Create Household</button>
+
+                                        <div id="create-project" class="collapse" aria-expanded="false">
+                                            <form class="create-project-form flex-form">
+                                                <label class="sr-only" for="name">Name</label>
+                                                <input type="text" class="form-control  form-custom" name="name" placeholder="Name" required>
+
+                                                <label class="sr-only" for="type">Type</label>
+                                                <select class="form-control  form-custom" name="type">
+                                                    <option value="" selected disabled hidden>Select type</option>
+                                                    <option value="Rental">Rental</option>
+                                                    <option value="Owned">Owned</option>
+                                                </select>
+
+                                                <label class="sr-only" for="address">Address</label>
+                                                <input type="text" class="form-control form-custom" name="address" placeholder="Address" required>
+                                                
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <button type="button" class="btn btn-warning m-2 create-project-button">Create</button>
+                                                <button class="btn btn-secondary m-2" data-toggle="collapse" data-target="#create-project"><i class="far fa-times"></i></button>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>   
+                                    <div class="project-action-item">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#join-project">Join Household</button>
+                                        <div id="join-project" class="collapse" aria-expanded="false">
+                                            <form class="join-project-form flex-form">
+                                                <label class="sr-only" for="name">Invite Token</label>
+                                                <input type="text" class="form-control form-custom" name="invite_token" placeholder="Invite Token" required>
+
+                                                <button type="button" class="btn btn-warning m-2 join-project-button">Join</button>
+                                                <button class="btn btn-secondary m-2" data-toggle="collapse" data-target="#join-project"><i class="far fa-times"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>             
+                    </tbody>
+                </table>
+            </div>
+
+            {% for project in projects %}
+            <div class="table-responsive black-card">
+                <table class="table align-middle text-light">
+                    <tbody>
+                        <tr>
+                            <h4 class="my-3 card-text text-light">{{ project.name }}</h4>
+                            {% if current_user.id == project.owner %}
+                            <p class="text-light">You are the owner of this project.<p>
+                            {% else %}
+                            <p class="text-light">You are a member of this project.<p>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Invite Token</td>
+                            <td>{{ project.invite_token }}</td>    
+                        </tr>
+                        
+                        <tr>
+                            <td>Address</td>
+                            <td>{{ project.address }}</td>
+                        </tr> 
+                        <tr>
+                            <td>Type</td>
+                            <td>{{ project.type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Members</td>
+                            {% if not project.members %}
+                                <td>No members yet</td>
+                            {% else %}
+                                <td>
+                                    {% for member in project.members %}
+                                    {{ member['first_name'] }} {{ member['last_name'] }}
+                                    {% if project.members|length >= 2 and not loop.last %}
+                                    ,
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </td>      
+                            {% endif %}
+                        </tr>     
+                    </tbody>
+                </table>
+
+                <table class="table align-middle">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="project-actions">
+                                    <div class="project-action-item">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-primary btn-project" type="button" data-toggle="collapse" data-target="#add-member-{{ project.id }}">Add Member</button>
+
+                                        <div id="add-member-{{ project.id }}" class="collapse" aria-expanded="false">
+                                            <form class="flex-form add-member-form">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="project" value="{{ project.id }}">
+
+                                                <label class="sr-only" for="name">User ID</label>
+                                                <input type="text" class="form-control form-custom" name="add_member_id" placeholder="User ID" required>
+
+                                                <button type="button" class="btn btn-warning m-2 add-member-button">Add</button>
+                                                <button class="btn btn-secondary m-2" data-toggle="collapse" data-target="#add-member-{{ project.id }}"><i class="far fa-times"></i></button>
+                                            </form>
+                                        </div>                                    
+                                    </div>
+                                    {% for member in project.members %}
+                                    {% if member.id != current_user.id and project.members|length >= 1 %}
+                                    <div class="project-action-item">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-danger btn-project" type="button" data-toggle="collapse" data-target="#remove-member-{{ project.id }}">Remove Member</button>
+                                        <div id="remove-member-{{ project.id }}" class="collapse" aria-expanded="false">
+                                            <form class="flex-form remove-member-form">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="project" value="{{ project.id }}">
+                                                <label class="sr-only" for="name">Member</label>
+                                                <select class="form-control form-custom" name="remove_member_id">
+                                                    <option value="" selected disabled hidden>Select member</option>
+                                                    <option value="{{ member.id }}">{{ member.first_name }} {{ member.last_name }}</option>
+                                                </select>
+
+
+                                                <button type="button" class="btn btn-warning m-2 remove-member-button">Remove</button>
+                                                <button class="btn btn-secondary m-2" data-toggle="collapse" data-target="#remove-member-{{ project.id }}"><i class="far fa-times"></i></button>
+                                            </form>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    {% if project.owner == current_user.id %}
+                                    <div class="project-action-item">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button class="btn btn-danger btn-project" type="button" data-toggle="collapse" data-target="#delete-project-{{ project.id }}">Delete Household</button>
+
+                                        <div id="delete-project-{{ project.id }}" class="collapse" aria-expanded="false">
+                                            <p class="card-text text-light">Please write the project name to confirm its deletion.</p>
+                                            <form class="flex-form delete-project-form" action="{{ url_for('delete_project') }}" method="post">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="project_id" value="{{ project.id }}">
+
+                                                <label class="sr-only" for="project_name">Household Name</label>
+                                                <input type="text" class="form-control form-custom" name="project_name" placeholder="Household Name" required>
+                                                <p class="card-text text-light">Deleting your project is irreversible. All of your data including members and expenses will be permanently deleted!</p>
+                                                <button type="submit" class="btn btn-warning m-2">Delete Household</button>
+                                                <button class="btn btn-secondary m-2" data-toggle="collapse" data-target="#delete-project-{{ project.id }}"><i class="far fa-times"></i></button>
+
+                                            </form>
+                                            
+                                        </div>
+                                    
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}       
+        </div>
+    </div>
+</div>
+{% endblock %}

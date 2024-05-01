@@ -1,0 +1,37 @@
+{
+  "cashflow": {
+    "income": [
+      "salary",
+      "bonus",
+      "business_income",
+      "investment_income"
+    ],
+    "expense": {
+      "personal":
+      [
+        "phone",
+        "food",
+        "transportation",
+        "entertainment",
+        "clothing",
+        "health",
+        "education",
+        "subscription",
+        "credit_card_payments",
+        "loan_payments",
+        "health_wellness",
+        "beauty_grooming",
+        "other"
+      ],
+      "household": [
+        "rent",
+        "utilities",
+        "groceries",
+        "savings",
+        "birthdays",
+        "vacations",
+        "other"
+      ]
+    }
+  }
+}
